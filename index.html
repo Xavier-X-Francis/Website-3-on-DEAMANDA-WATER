@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="DEAMANDA WATER sales dashboard and manager settings for tracking water bag sales."
+    />
+    <title>DEAMANDA WATER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">DW</div>
+          <div>
+            <p class="eyebrow">Pure water distribution</p>
+            <h1>DEAMANDA WATER</h1>
+          </div>
+        </div>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#overview">Overview</a>
+          <a href="#tracker">Sales Tracker</a>
+          <a href="#manager">Manager</a>
+        </nav>
+
+        <button id="openManager" class="button button-primary" type="button">
+          Manager Access
+        </button>
+      </header>
+
+      <main>
+        <section class="hero" id="overview">
+          <div class="hero-copy">
+            <p class="tag">Fast sales monitoring</p>
+            <h2>Your supply, sales, and revenue in one place.</h2>
+            <p class="subtitle">
+              Track every bag sold, update pricing instantly, and keep your records accurate
+              with a simple and secure dashboard built for speed.
+            </p>
+            <div class="hero-actions">
+              <a href="#tracker" class="button button-primary">Record a Sale</a>
+              <button id="toggleManagerPanel" class="button button-secondary" type="button">
+                Open Settings
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-panel">
+            <div class="mini-stat">
+              <span>Total bags sold</span>
+              <strong id="totalBagsDisplay">0</strong>
+            </div>
+            <div class="mini-stat">
+              <span>Revenue</span>
+              <strong id="totalRevenueDisplay">₦0</strong>
+            </div>
+            <div class="mini-stat highlight">
+              <span>Current price</span>
+              <strong id="currentPriceDisplay">₦2,000</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="Sales summary">
+          <article class="stat-card">
+            <span class="stat-label">Number of buyers</span>
+            <strong id="buyerCountDisplay">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">This month</span>
+            <strong id="monthlySalesDisplay">₦0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Average sale</span>
+            <strong id="averageSaleDisplay">₦0</strong>
+          </article>
+        </section>
+
+        <section class="content-grid" id="tracker">
+          <div class="panel form-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Sales record</p>
+                <h3>Add a new sale</h3>
+              </div>
+            </div>
+
+            <form id="saleForm">
+              <div class="field">
+                <label for="buyerName">Buyer name</label>
+                <input id="buyerName" name="buyerName" type="text" placeholder="e.g. Ada Okafor" required />
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="bagsSold">Bags sold</label>
+                  <input id="bagsSold" name="bagsSold" type="number" min="1" value="1" required />
+                </div>
+
+                <div class="field">
+                  <label for="saleDate">Date bought</label>
+                  <input id="saleDate" name="saleDate" type="date" required />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="computedPrice">Price per bag</label>
+                <input id="computedPrice" type="text" value="₦2,000" readonly />
+              </div>
+
+              <div class="total-box">
+                <span>Total</span>
+                <strong id="saleTotal">₦2,000</strong>
+              </div>
+
+              <button class="button button-primary wide" type="submit">Save Sale</button>
+            </form>
+          </div>
+
+          <div class="panel table-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Recent activity</p>
+                <h3>Sales history</h3>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Buyer</th>
+                    <th>Bags</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="salesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel manager-panel" id="manager">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Manager access</p>
+              <h3>Settings</h3>
+            </div>
+            <span id="adminBadge" class="status-badge muted">Locked</span>
+          </div>
+
+          <div id="managerLockedState" class="manager-locked">
+            <p>Enter the manager password to access pricing and sales settings.</p>
+          </div>
+
+          <div id="managerContent" class="manager-content hidden" aria-live="polite">
+            <div class="settings-grid">
+              <div class="field">
+                <label for="companyNameInput">Company name</label>
+                <input id="companyNameInput" type="text" maxlength="40" />
+              </div>
+
+              <div class="field">
+                <label for="pricePerBagInput">Price per bag (₦)</label>
+                <input id="pricePerBagInput" type="number" min="1" step="100" />
+              </div>
+            </div>
+
+            <div class="settings-actions">
+              <button id="saveSettings" class="button button-primary" type="button">Save settings</button>
+              <button id="resetSales" class="button button-secondary danger" type="button">Clear sales log</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="managerModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="true"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="managerTitle">
+        <button class="close-button" type="button" aria-label="Close manager access" data-close="true">×</button>
+        <h3 id="managerTitle">Manager Login</h3>
+        <p>Use the secure password to access the settings dashboard.</p>
+
+        <form id="managerLoginForm">
+          <label class="sr-only" for="managerPassword">Password</label>
+          <input id="managerPassword" type="password" placeholder="Enter password" required />
+          <button class="button button-primary wide" type="submit">Unlock</button>
+        </form>
+
+        <p id="loginMessage" class="login-message" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
